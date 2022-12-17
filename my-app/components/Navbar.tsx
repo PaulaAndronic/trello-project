@@ -6,6 +6,7 @@ export const Navbar = () => {
       <AppBar
         sx={{
           height: '60px',
+          backgroundColor: '#6495ED'
         }}
         position="static"
       >
