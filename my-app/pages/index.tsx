@@ -4,10 +4,9 @@ import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { Navbar } from '../components/Navbar';
 import styled from '@emotion/styled';
-import { AddBoardModal } from '../components/AddBoardModal';
+import { AddBoardModal } from '../components/boards/AddBoardModal';
 import { useRouter } from 'next/router';
 import { ItemContent } from '../components/ItemContent';
-import { DeleteBoardModal } from '../components/DeleteBoardModal';
 
 type BoardsType = {
   boards: {
@@ -17,7 +16,7 @@ type BoardsType = {
   }[]
 }
 
-const Item = styled(Paper)(() => ({
+export const Item = styled(Paper)(() => ({
   padding: '10px',
   textAlign: 'left',
   height: 150,
@@ -95,7 +94,9 @@ const Home = ({ boards }: BoardsType) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch("http://127.0.0.1:3001");
   const boards = await res.json();
-  console.log(boards);
+  boards.sort(function(a: any, b: any) {
+    return a.boardid - b.boardid;
+  });
   return { props: { boards } }
 }
 

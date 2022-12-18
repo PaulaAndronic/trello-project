@@ -1,10 +1,11 @@
 import { Button, Modal, Stack, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 import React from "react";
 
-type DeleteBoardModalProps = {
+type DeleteListModalProps = {
   open: boolean,
   handleClose(): void,
-  boardId?: number,
+  listId?: number,
 }
 
 const style = {
@@ -21,19 +22,19 @@ const style = {
   pb: 3,
 };
 
-export const DeleteBoardModal = ({ open, handleClose, boardId }: DeleteBoardModalProps) => {
+export const DeleteListModal = ({ open, handleClose, listId }: DeleteListModalProps) => {
+  const router = useRouter();
+
   const handleSubmit = async (event: { preventDefault: () => void; }) => {
-    console.log("Delete")
     handleClose();
     event.preventDefault()
-    console.log(boardId);
     const data = {
-      boardId: boardId,
+      listId: listId,
     }
 
     const JSONdata = JSON.stringify(data)
 
-    const endpoint = 'http://127.0.0.1:3001'
+    const endpoint = `http://127.0.0.1:3001/board/${router.query.boardId}`
 
     const options = {
       method: 'DELETE',
@@ -56,7 +57,7 @@ export const DeleteBoardModal = ({ open, handleClose, boardId }: DeleteBoardModa
       aria-describedby="child-modal-description"
     >
       <Stack sx={{ ...style, width: 400, gap: '20px' }}>
-        <Typography>Are you sure you want to delete your board?</Typography>
+        <Typography>Are you sure you want to delete your list?</Typography>
         <Stack direction="row" justifyContent="space-between">
           <Button onClick={handleSubmit}>Delete</Button>
           <Button onClick={handleClose} sx={{ color: "red" }}>Close</Button>
