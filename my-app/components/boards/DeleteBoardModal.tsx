@@ -1,25 +1,12 @@
 import { Button, Modal, Stack, Typography } from "@mui/material";
 import React from "react";
+import { style } from "../data";
 
 type DeleteBoardModalProps = {
   open: boolean,
   handleClose(): void,
   boardId?: number,
 }
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 700,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
 
 export const DeleteBoardModal = ({ open, handleClose, boardId }: DeleteBoardModalProps) => {
   const handleSubmit = async (event: { preventDefault: () => void; }) => {
@@ -54,7 +41,7 @@ export const DeleteBoardModal = ({ open, handleClose, boardId }: DeleteBoardModa
       aria-describedby="child-modal-description"
     >
       <Stack sx={{ ...style, width: 400, gap: '20px' }}>
-        <Typography>Are you sure you want to delete your board?</Typography>
+        <Typography variant="h6">Are you sure you want to delete your board?</Typography>
         <Stack direction="row" justifyContent="space-between">
           <Button onClick={handleSubmit}>Delete</Button>
           <Button onClick={handleClose} sx={{ color: "red" }}>Close</Button>

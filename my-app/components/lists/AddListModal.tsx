@@ -1,25 +1,12 @@
 import { Button, Modal, Stack, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
+import { style } from "../data";
 
 type AddListModalProps = {
   open: boolean,
   handleClose(): void,
 }
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 700,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
 
 export const AddListModal = ({ open, handleClose }: AddListModalProps) => {
   const [title, setTitle] = React.useState('');
@@ -62,7 +49,7 @@ export const AddListModal = ({ open, handleClose }: AddListModalProps) => {
       aria-describedby="child-modal-description"
     >
       <Stack sx={{ ...style, width: 400, gap: '20px' }}>
-        <Typography>Create new list</Typography>
+        <Typography variant="h6">Create new list</Typography>
         <TextField
           id="outlined-basic"
           label="Title"

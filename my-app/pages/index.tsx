@@ -50,10 +50,19 @@ const Home = ({ boards }: BoardsType) => {
       </Head>
       <Navbar />
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={{ xs: 4, md: 8 }} columns={{ xs: 4, sm: 8, md: 12 }} px={25} py={20}
+        <Box sx={{ textAlign: 'center', mt: '40px' }}>
+          <Typography variant="h5">Workspace - My boards</Typography>
+        </Box>
+        <Grid
+          container
+          spacing={{ xs: 4, md: 8 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+          px={20}
+          py={10}
           direction="row"
           alignItems="center"
-          justifyContent="center">
+          justifyContent="center"
+        >
           {boards?.map(board => (
             <Grid item xs={2} sm={4} md={4} key={board.boardid}>
               <Item
@@ -94,9 +103,6 @@ const Home = ({ boards }: BoardsType) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch("http://127.0.0.1:3001");
   const boards = await res.json();
-  boards.sort(function(a: any, b: any) {
-    return a.boardid - b.boardid;
-  });
   return { props: { boards } }
 }
 

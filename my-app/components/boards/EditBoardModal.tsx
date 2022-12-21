@@ -1,5 +1,6 @@
 import { Button, Modal, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
+import { style } from "../data";
 
 type EditBoardModalProps = {
   open: boolean,
@@ -7,20 +8,6 @@ type EditBoardModalProps = {
   boardId: number,
   boardTitle: string,
 }
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 700,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
 
 export const EditBoardModal = ({ open, handleClose, boardId, boardTitle }: EditBoardModalProps) => {
   const [title, setTitle] = React.useState(boardTitle);
@@ -62,7 +49,7 @@ export const EditBoardModal = ({ open, handleClose, boardId, boardTitle }: EditB
       aria-describedby="child-modal-description"
     >
       <Stack sx={{ ...style, width: 400, gap: '20px' }}>
-      <Typography>Change the title of your board</Typography>
+      <Typography variant="h6">Change the title of your board</Typography>
         <TextField
           id="outlined-basic"
           variant="outlined"

@@ -1,30 +1,36 @@
-import { Button, Modal, Stack, Typography } from "@mui/material";
+import { Button, Modal, Stack, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
 import { style } from "../data";
 
-type DeleteListModalProps = {
+type AddCardModalProps = {
   open: boolean,
   handleClose(): void,
-  listId?: number,
+  listId: number
 }
 
-export const DeleteListModal = ({ open, handleClose, listId }: DeleteListModalProps) => {
+export const AddCardModal = ({ open, handleClose, listId }: AddCardModalProps) => {
+  const [title, setTitle] = React.useState('');
   const router = useRouter();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
 
   const handleSubmit = async (event: { preventDefault: () => void; }) => {
     handleClose();
     event.preventDefault()
+
     const data = {
-      listId: listId,
+      title: title,
+      fklist: listId
     }
 
     const JSONdata = JSON.stringify(data)
-
-    const endpoint = `http://127.0.0.1:3001/board/${router.query.boardId}`
+    const endpoint = `http://127.0.0.1:3001/board/${router.query.boardId}/cards-list`
 
     const options = {
-      method: 'DELETE',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
@@ -33,6 +39,7 @@ export const DeleteListModal = ({ open, handleClose, listId }: DeleteListModalPr
       body: JSONdata,
     }
     const response = await fetch(endpoint, options)
+    setTitle('');
   }
 
   return (
@@ -44,12 +51,19 @@ export const DeleteListModal = ({ open, handleClose, listId }: DeleteListModalPr
       aria-describedby="child-modal-description"
     >
       <Stack sx={{ ...style, width: 400, gap: '20px' }}>
-        <Typography variant="h6">Are you sure you want to delete your list?</Typography>
+        <Typography variant="h6">Create new card</Typography>
+        <TextField
+          id="outlined-basic"
+          label="Title"
+          variant="outlined"
+          value={title}
+          onChange={handleChange} />
         <Stack direction="row" justifyContent="space-between">
-          <Button onClick={handleSubmit}>Delete</Button>
-          <Button onClick={handleClose} sx={{ color: "red" }}>Close</Button>
+          <Button onClick={handleSubmit} disabled={title === ''}>Submit</Button>
+          <Button onClick={handleClose} sx={{ color: 'red' }}>Close</Button>
         </Stack>
       </Stack>
     </Modal>
   );
 }
+

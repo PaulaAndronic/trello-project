@@ -1,6 +1,7 @@
 import { Button, Modal, Stack, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
+import { style } from "../data";
 
 type EditListModalProps = {
   open: boolean,
@@ -8,20 +9,6 @@ type EditListModalProps = {
   listId: number,
   listTitle: string,
 }
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 700,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
 
 export const EditListModal = ({ open, handleClose, listId, listTitle }: EditListModalProps) => {
   const [title, setTitle] = React.useState(listTitle);
@@ -64,7 +51,7 @@ export const EditListModal = ({ open, handleClose, listId, listTitle }: EditList
       aria-describedby="child-modal-description"
     >
       <Stack sx={{ ...style, width: 400, gap: '20px' }}>
-      <Typography>Change the title of your list</Typography>
+      <Typography variant="h6">Change the title of your list</Typography>
         <TextField
           id="outlined-basic"
           variant="outlined"
