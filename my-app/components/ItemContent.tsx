@@ -41,19 +41,19 @@ export const ItemContent = ({ boardId, title }: ItemContentProps) => {
   return (
     <>
       <Stack flexDirection="row" justifyContent="space-between" alignItems="center">
-        <Typography variant='body1'>{title}</Typography>
+        <Typography fontSize={18} fontWeight="bold" p={1}>{title}</Typography>
         <Stack flexDirection="row" justifyContent="space-around" width={80}>
           <IconButton disableRipple disableFocusRipple onClick={handleOpenEditBoardModal}>
             <EditIcon sx={{ color: 'white' }} />
           </IconButton>
           <EditBoardModal open={openEditBoardModal} handleClose={handleCloseEditBoardModal} boardId={boardId} boardTitle={title} />
-          <IconButton disableRipple disableFocusRipple onClick={handleOpenDeleteBoardModal} sx={{ width: '50%' }}>
+          <IconButton disableRipple disableFocusRipple onClick={handleOpenDeleteBoardModal}>
             <DeleteIcon sx={{ color: 'white' }} />
           </IconButton>
           <DeleteBoardModal open={openDeleteBoardModal} handleClose={handleCloseDeleteBoardModal} boardId={boardId} />
         </Stack>
       </Stack>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} height={75}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} height={72}>
         <Button onClick={() => handleOpenButton(boardId)} sx={{ color: 'white', fontSize: '18px' }}>Open</Button>
       </Box>
     </>

@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/', async (request, response) => {
-  const res = await pool.query("SELECT * FROM boards");
+  const res = await pool.query("SELECT * FROM boards ORDER BY boardid");
   response.send(res.rows);
 })
 
@@ -34,7 +34,7 @@ app.put('/', async (request, response) => {
 })
 
 app.get('/board/:boardId', async (request, response) => {
-  const res = await pool.query(`SELECT * FROM lists WHERE boardid=$1`, [request.params.boardId]);
+  const res = await pool.query(`SELECT * FROM lists WHERE boardid=$1 ORDER BY listid`, [request.params.boardId]);
   response.send(res.rows);
 })
 
@@ -57,7 +57,7 @@ app.put('/board/:boardId', async (request, response) => {
 })
 
 app.get('/board/:boardId/cards-list', async (request, response) => {
-  const res = await pool.query(`SELECT * FROM cards`);
+  const res = await pool.query(`SELECT * FROM cards ORDER BY cardid`);
   response.send(res.rows);
 })
 
