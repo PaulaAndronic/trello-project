@@ -1,4 +1,4 @@
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, Stack, Box } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from "./styled/StyledButton";
@@ -40,16 +40,22 @@ export const ItemContent = ({ boardId, title }: ItemContentProps) => {
   }
   return (
     <>
-      <Typography variant='body1'>{title}</Typography>
-      <IconButton disableRipple disableFocusRipple sx={{ left: '68%' }}  onClick={handleOpenEditBoardModal}>
-        <EditIcon sx={{ color: 'white' }} />
-      </IconButton>
-      <EditBoardModal open={openEditBoardModal} handleClose={handleCloseEditBoardModal} boardId={boardId} boardTitle={title} />
-      <IconButton disableRipple disableFocusRipple sx={{  left: '80%' }} onClick={handleOpenDeleteBoardModal}>
-        <DeleteIcon sx={{ color: 'white' }} />
-      </IconButton>
-      <Button onClick={() => handleOpenButton(boardId)} sx={{color: 'white', left: '40%', top: '20%', fontSize: '18px'}}>Open</Button>
-      <DeleteBoardModal open={openDeleteBoardModal} handleClose={handleCloseDeleteBoardModal} boardId={boardId} />
+      <Stack flexDirection="row" justifyContent="space-between" alignItems="center">
+        <Typography variant='body1'>{title}</Typography>
+        <Stack flexDirection="row" justifyContent="space-around" width={80}>
+          <IconButton disableRipple disableFocusRipple onClick={handleOpenEditBoardModal}>
+            <EditIcon sx={{ color: 'white' }} />
+          </IconButton>
+          <EditBoardModal open={openEditBoardModal} handleClose={handleCloseEditBoardModal} boardId={boardId} boardTitle={title} />
+          <IconButton disableRipple disableFocusRipple onClick={handleOpenDeleteBoardModal} sx={{ width: '50%' }}>
+            <DeleteIcon sx={{ color: 'white' }} />
+          </IconButton>
+          <DeleteBoardModal open={openDeleteBoardModal} handleClose={handleCloseDeleteBoardModal} boardId={boardId} />
+        </Stack>
+      </Stack>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} height={75}>
+        <Button onClick={() => handleOpenButton(boardId)} sx={{ color: 'white', fontSize: '18px' }}>Open</Button>
+      </Box>
     </>
   );
 }

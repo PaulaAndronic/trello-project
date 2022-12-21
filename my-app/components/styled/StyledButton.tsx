@@ -3,8 +3,7 @@ import { styled } from '@mui/material/styles';
 import Button from "@mui/material/Button";
 
 const StyledButton = styled(Button)`
-  position: absolute;
-  top: 5%;
+  min-width: 30px;
   &:active {
     border-style: outset;
     box-shadow: 0 0 0px #3388cc;

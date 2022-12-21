@@ -1,4 +1,4 @@
-import { Typography, Button, Stack, Box } from "@mui/material";
+import { Typography, Stack, Box } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from "./styled/StyledButton";
@@ -54,22 +54,25 @@ export const CardsList = ({ listId, title, children }: CardsListProps) => {
         minWidth: '320px',
         p: '10px',
         backgroundColor: '#00000014',
-        position: 'relative'
       }}
     >
-      <Typography variant='body1' paddingTop='8px' paddingBottom='10px' paddingX='7px'>{title}</Typography>
-      <IconButton disableRipple disableFocusRipple onClick={handleOpenAddCardModal} sx={{ left: '56%', top: '12px' }}>
-        <AddIcon sx={{ color: "black" }} style={{ fontSize: '27px' }} />
-      </IconButton>
-      <AddCardModal open={openAddCardModal} handleClose={handleCloseAddCardModal} listId={listId} />
-      <IconButton disableRipple disableFocusRipple sx={{ left: '68%', top: '12px' }} onClick={handleOpenEditListModal}>
-        <EditIcon sx={{ color: "black" }} />
-      </IconButton>
-      <EditListModal open={openEditListModal} handleClose={handleCloseEditListModal} listId={listId} listTitle={title} />
-      <IconButton disableRipple disableFocusRipple sx={{ left: '80%', top: '12px' }} onClick={handleOpenDeleteListModal}>
-        <DeleteIcon sx={{ color: "black" }} />
-      </IconButton>
-      <DeleteListModal open={openDeleteListModal} handleClose={handleCloseDeleteListModal} listId={listId} />
+      <Stack flexDirection="row" justifyContent="space-between" alignItems="center">
+        <Typography fontSize={18} fontWeight="bold" p={1}>{title}</Typography>
+        <Stack flexDirection="row" justifyContent="space-around" width={120}>
+          <IconButton disableRipple disableFocusRipple onClick={handleOpenAddCardModal}>
+            <AddIcon sx={{ color: "black" }} style={{ fontSize: '27px' }} />
+          </IconButton>
+          <AddCardModal open={openAddCardModal} handleClose={handleCloseAddCardModal} listId={listId} />
+          <IconButton disableRipple disableFocusRipple onClick={handleOpenEditListModal}>
+            <EditIcon sx={{ color: "black" }} />
+          </IconButton>
+          <EditListModal open={openEditListModal} handleClose={handleCloseEditListModal} listId={listId} listTitle={title} />
+          <IconButton disableRipple disableFocusRipple onClick={handleOpenDeleteListModal}>
+            <DeleteIcon sx={{ color: "black" }} />
+          </IconButton>
+          <DeleteListModal open={openDeleteListModal} handleClose={handleCloseDeleteListModal} listId={listId} />
+        </Stack>
+      </Stack>
       {children}
     </Box>
   );
