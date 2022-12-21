@@ -34,7 +34,7 @@ app.put('/', async (request, response) => {
 })
 
 app.get('/board/:boardId', async (request, response) => {
-  const res = await pool.query("SELECT * FROM lists WHERE boardid=$1", [request.params.boardId]);
+  const res = await pool.query(`SELECT * FROM lists WHERE boardid=$1`, [request.params.boardId]);
   response.send(res.rows);
 })
 
@@ -46,7 +46,6 @@ app.post('/board/:boardId', async (request, response) => {
 
 app.delete('/board/:boardId', async (request, response) => {
   const { listId } = request.body;
-  console.log(listId);
   const res = await pool.query('DELETE FROM lists WHERE listid=$1', [listId]);
   response.send("Done");
 })
@@ -54,6 +53,29 @@ app.delete('/board/:boardId', async (request, response) => {
 app.put('/board/:boardId', async (request, response) => {
   const { listId, title } = request.body;
   const res = await pool.query('UPDATE lists SET title = $1 WHERE listid = $2', [title, listId]);
+  response.send("Done");
+})
+
+app.get('/board/:boardId/cards-list', async (request, response) => {
+  const res = await pool.query(`SELECT * FROM cards`);
+  response.send(res.rows);
+})
+
+app.post('/board/:boardId/cards-list', async (request, response) => {
+  const { title, fklist } = request.body;
+  const res = await pool.query('INSERT INTO cards(cardtitle, fklist) VALUES($1, $2)', [title, fklist]);
+  response.send("Done");
+})
+
+app.put('/board/:boardId/cards-list', async (request, response) => {
+  const { cardId, title, description } = request.body;
+  const res = await pool.query('UPDATE cards SET cardTitle = $1, description = $2 WHERE cardid = $3', [title, description, cardId]);
+  response.send("Done");
+})
+
+app.delete('/board/:boardId/cards-list', async (request, response) => {
+  const { cardId } = request.body;
+  const res = await pool.query('DELETE FROM cards WHERE cardid=$1', [cardId]);
   response.send("Done");
 })
 
