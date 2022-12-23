@@ -124,7 +124,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const cardsRes = await fetch(`http://127.0.0.1:3001/board/${context.params?.boardId}/cards-list`);
   const lists = await res.json();
   const cards = await cardsRes.json();
-  console.log(cards);
   return { props: { lists, cards } }
 }
 
